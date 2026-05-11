@@ -30,6 +30,8 @@ export default function RootLayout({
           >
             Create New
           </Link>
+          {" | "}
+          <Link href="/users">Users</Link>
         </nav>
         <main className="">{children}</main>
       </body>

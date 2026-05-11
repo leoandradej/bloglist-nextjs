@@ -15,6 +15,20 @@
       "when": 1778293267012,
       "tag": "0001_glamorous_cyclops",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1778465338407,
+      "tag": "0002_great_puppet_master",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1778465774992,
+      "tag": "0003_past_swordsman",
+      "breakpoints": true
     }
   ]
 }
