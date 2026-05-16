@@ -1,4 +1,6 @@
 import NavBar from "./components/NavBar";
+import Notification from "./components/Notification";
+import { NotificationProvider } from "./components/NotificationProvider";
 import AuthSessionProvider from "./components/SessionProvider";
 import "./globals.css";
 
@@ -9,10 +11,13 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body className="max-w-2xl my-0 mx-auto">
+      <body className="min-h-screen bg-background text-foreground">
         <AuthSessionProvider>
-          <NavBar />
-          <main className="">{children}</main>
+          <NotificationProvider>
+            <NavBar />
+            <Notification />
+            <main>{children}</main>
+          </NotificationProvider>
         </AuthSessionProvider>
       </body>
     </html>

@@ -13,28 +13,21 @@ const UserPage = async ({
   if (!user) notFound();
 
   return (
-    <div>
-      <h2 className="text-2xl text-yellow-500">{user.name}</h2>
-      <p>Username: {user.username}</p>
-      <h3 className="text-xl mb-2">Blogs</h3>
-      <ul className="flex flex-col gap-2">
+    <div className="container">
+      <div>
+        <h2>{user.name}</h2>
+        <p className="text-yellow-400">Username: {user.username}</p>
+      </div>
+      <h3>Blogs</h3>
+      <ul>
         {user.blogs.map(({ id, title, author, url, likes }) => (
-          <li
-            key={id}
-            className="flex flex-col p-2 border border-yellow-200 rounded-md"
-          >
+          <li key={id} className="card">
             <Link href={`/blogs/${id}`}>
-              <h3 className="text-xl text-yellow-500">{title}</h3>
+              <h3>{title}</h3>
             </Link>
             <span>Author: {author}</span>
             <span>
-              URL:{" "}
-              <Link
-                href={url}
-                className="hover:text-yellow-400 transition-colors duration-300 cursor-pointer"
-              >
-                {url}
-              </Link>
+              URL: <Link href={url}>{url}</Link>
             </span>
             <span>Likes: {likes}</span>
           </li>

@@ -27,36 +27,23 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <h2 className="text-2xl mb-2">Login</h2>
+    <div className="container">
+      <h2>Login</h2>
       {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <form onSubmit={handleSubmit}>
         <div>
           <label>
             Username:
-            <input
-              type="text"
-              name="username"
-              required
-              className="border border-white p-0.5 rounded-md mx-1 focus:border-yellow-400 focus:outline focus:outline-yellow-400"
-            />
+            <input type="text" name="username" required />
           </label>
         </div>
         <div>
           <label>
             Password:
-            <input
-              type="password"
-              name="password"
-              required
-              className="border border-white p-0.5 rounded-md mx-1 focus:border-yellow-400 focus:outline focus:outline-yellow-400"
-            />
+            <input type="password" name="password" required />
           </label>
         </div>
-        <button
-          type="submit"
-          className="bg-yellow-400 rounded-md py-1 px-4 w-fit text-gray-700 font-bold hover:bg-amber-400 transition-colors duration-300 cursor-pointer"
-        >
+        <button type="submit" className="mx-auto">
           Login
         </button>
       </form>

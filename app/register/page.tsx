@@ -1,47 +1,64 @@
+"use client";
+
+import { useActionState } from "react";
 import { registerUser } from "../actions/users";
 
 export default function RegisterPage() {
+  const [state, formAction] = useActionState(registerUser, {
+    errors: {},
+    values: { username: "", name: "" },
+  });
+
   return (
-    <div>
-      <h2 className="text-2xl mb-2">Register</h2>
-      <form action={registerUser} className="flex flex-col gap-2">
-        <div>
+    <div className="container">
+      <h2>Register</h2>
+      {state.errors?.general && (
+        <span className="text-sm text-red-500">{state.errors.general}</span>
+      )}
+      <form action={formAction}>
+        <div className="relative">
           <label>
             Username:
             <input
               type="text"
               name="username"
-              required
-              className="border border-white p-0.5 rounded-md mx-1 focus:border-yellow-400 focus:outline focus:outline-yellow-400"
+              defaultValue={state.values?.username}
             />
           </label>
+          {state.errors?.username && (
+            <span className="error-message">{state.errors.username}</span>
+          )}
         </div>
-        <div>
+        <div className="relative">
           <label>
             Name:
-            <input
-              type="text"
-              name="name"
-              required
-              className="border border-white p-0.5 rounded-md mx-1 focus:border-yellow-400 focus:outline focus:outline-yellow-400"
-            />
+            <input type="text" name="name" defaultValue={state.values?.name} />
           </label>
+          {state.errors.name && (
+            <span className="error-message">{state.errors.name}</span>
+          )}
         </div>
-        <div>
+        <div className="relative">
           <label>
             Password:
-            <input
-              type="password"
-              name="password"
-              required
-              className="border border-white p-0.5 rounded-md mx-1 focus:border-yellow-400 focus:outline focus:outline-yellow-400"
-            />
+            <input type="password" name="password" />
           </label>
+          {state.errors?.password && (
+            <span className="error-message">{state.errors.password}</span>
+          )}
         </div>
-        <button
-          type="submit"
-          className="bg-yellow-400 rounded-md py-1 px-4 w-fit text-gray-700 font-bold hover:bg-amber-400 transition-colors duration-300 cursor-pointer"
-        >
+        <div className="relative">
+          <label>
+            Confirm Password:
+            <input type="password" name="passwordConfirm" />
+          </label>
+          {state.errors?.passwordConfirm && (
+            <span className="error-message">
+              {state.errors.passwordConfirm}
+            </span>
+          )}
+        </div>
+        <button type="submit" className="mx-auto">
           Register
         </button>
       </form>

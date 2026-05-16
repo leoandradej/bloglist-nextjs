@@ -10,27 +10,16 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   if (!blog) notFound();
 
   return (
-    <div className="flex flex-col gap-2">
-      <h3 className="text-xl text-yellow-500">{blog.title}</h3>
+    <div className="container">
+      <h3>{blog.title}</h3>
       <span>Author: {blog.author}</span>
       <span>
-        URL:{" "}
-        <Link
-          href={blog.url}
-          className="hover:text-yellow-400 transition-colors duration-300 cursor-pointer"
-        >
-          {blog.url}
-        </Link>
+        URL: <Link href={blog.url}>{blog.url}</Link>
       </span>
       <span>Likes: {blog.likes}</span>
       <form action={incrementBlogLikes}>
         <input type="hidden" name="id" value={id} />
-        <button
-          type="submit"
-          className="bg-yellow-400 rounded-md py-1 px-4 w-fit text-gray-700 font-bold hover:bg-amber-400 transition-colors duration-300 cursor-pointer"
-        >
-          Like
-        </button>
+        <button type="submit">Like</button>
       </form>
     </div>
   );

@@ -1,47 +1,65 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect } from "react";
 import { createBlog } from "../../actions/blogs";
+import { useNotification } from "../../components/NotificationProvider";
 
 const NewBlog = () => {
+  const [state, formAction] = useActionState(createBlog, {
+    errors: {},
+    success: false,
+    values: { title: "", author: "", url: "" },
+  });
+  const { showNotification } = useNotification();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state.success) {
+      showNotification("Blog created successfully!");
+      router.push("/blogs");
+    }
+  }, [state, showNotification, router]);
   return (
-    <div>
-      <h2 className="text-2xl mb-2">Create a New Blog</h2>
-      <form action={createBlog} className="flex flex-col gap-2">
-        <div>
+    <div className="container">
+      <h2>Create a New Blog</h2>
+      <form action={formAction}>
+        <div className="relative">
           <label>
-            Title:
+            Title
             <input
               type="text"
               name="title"
-              required
-              className="border border-white p-0.5 rounded-md mx-1 focus:border-yellow-400 focus:outline focus:outline-yellow-400"
+              defaultValue={state.values?.title}
             />
           </label>
+          {state.errors?.title && (
+            <span className="error-message">{state.errors.title}</span>
+          )}
         </div>
-        <div>
+        <div className="relative">
           <label>
-            Author:
+            Author
             <input
               type="text"
               name="author"
-              required
-              className="border border-white p-0.5 rounded-md mx-1 focus:border-yellow-400 focus:outline focus:outline-yellow-400"
+              defaultValue={state.values?.author}
             />
           </label>
+          {state.errors?.author && (
+            <span className="error-message">{state.errors.author}</span>
+          )}
         </div>
-        <div>
+        <div className="relative">
           <label>
-            URL:
-            <input
-              type="url"
-              name="url"
-              required
-              className="border border-white p-0.5 rounded-md mx-1 focus:border-yellow-400 focus:outline focus:outline-yellow-400"
-            />
+            URL
+            <input type="url" name="url" defaultValue={state.values?.url} />
           </label>
+          {state.errors?.url && (
+            <span className="error-message">{state.errors.url}</span>
+          )}
         </div>
-        <button
-          type="submit"
-          className="bg-yellow-400 rounded-md py-1 px-4 w-fit text-gray-700 font-bold hover:bg-amber-400 transition-colors duration-300 cursor-pointer"
-        >
+        <button type="submit" className="mx-auto">
           Create
         </button>
       </form>
