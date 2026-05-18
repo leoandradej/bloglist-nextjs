@@ -15,7 +15,7 @@ export default function RegisterPage() {
       {state.errors?.general && (
         <span className="text-sm text-red-500">{state.errors.general}</span>
       )}
-      <form action={formAction}>
+      <form action={formAction} className="form">
         <div className="relative">
           <label>
             Username:

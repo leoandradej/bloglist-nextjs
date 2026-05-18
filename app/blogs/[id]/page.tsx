@@ -1,26 +1,50 @@
+import { and, eq } from "drizzle-orm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { incrementBlogLikes } from "../../actions/blogs";
+import { db } from "../../../db";
+import { readingList } from "../../../db/schema";
+import { addToReadingList, incrementBlogLikes } from "../../actions/blogs";
 import { getBlogById } from "../../services/blogs";
+import { getCurrentUser } from "../../services/session";
 
 const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const blog = await getBlogById(Number(id));
-
   if (!blog) notFound();
 
+  const user = await getCurrentUser();
+
+  const inReadingList = user
+    ? await db.query.readingList.findFirst({
+        where: and(
+          eq(readingList.userId, user.id),
+          eq(readingList.blogId, blog.id),
+        ),
+      })
+    : null;
+
   return (
-    <div className="container">
+    <div className="card">
       <h3>{blog.title}</h3>
-      <span>Author: {blog.author}</span>
+      <span>by {blog.author}</span>
       <span>
-        URL: <Link href={blog.url}>{blog.url}</Link>
+        Visit: <Link href={blog.url}>{blog.url}</Link>
       </span>
-      <span>Likes: {blog.likes}</span>
-      <form action={incrementBlogLikes}>
-        <input type="hidden" name="id" value={id} />
-        <button type="submit">Like</button>
-      </form>
+      <div className="blog-actions">
+        <span>Likes: {blog.likes}</span>
+        <form action={incrementBlogLikes}>
+          <input type="hidden" name="id" value={id} />
+          <button type="submit">Like</button>
+        </form>
+        {user && user.id !== blog.userId && !inReadingList && (
+          <form action={addToReadingList}>
+            <input type="hidden" name="blogId" value={blog.id} />
+            <button type="submit" className="reading-list-btn">
+              Add to Reading List
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   );
 };

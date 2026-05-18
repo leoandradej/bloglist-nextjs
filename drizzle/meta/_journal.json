@@ -36,6 +36,20 @@
       "when": 1778714438338,
       "tag": "0004_burly_ma_gnuci",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1779063242916,
+      "tag": "0005_calm_vance_astro",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1779066698937,
+      "tag": "0006_superb_korvac",
+      "breakpoints": true
     }
   ]
 }

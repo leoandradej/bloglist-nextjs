@@ -23,7 +23,7 @@ const NewBlog = () => {
   return (
     <div className="container">
       <h2>Create a New Blog</h2>
-      <form action={formAction}>
+      <form action={formAction} className="form">
         <div className="relative">
           <label>
             Title

@@ -30,7 +30,7 @@ export default function LoginPage() {
     <div className="container">
       <h2>Login</h2>
       {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form">
         <div>
           <label>
             Username:
