@@ -8,7 +8,10 @@ const Notification = () => {
   if (!message) return null;
 
   return (
-    <div className={`notification ${type === "success" ? "success" : "error"}`}>
+    <div
+      className={`notification ${type === "success" ? "success" : "error"}`}
+      data-testid="notification"
+    >
       {message}
     </div>
   );

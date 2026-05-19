@@ -24,9 +24,9 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     : null;
 
   return (
-    <div className="card">
-      <h3>{blog.title}</h3>
-      <span>by {blog.author}</span>
+    <div className="card" data-testid="blog-detail">
+      <h3 data-testid="blog-title">{blog.title}</h3>
+      <span data-testid="blog-author">by {blog.author}</span>
       <span>
         Visit: <Link href={blog.url}>{blog.url}</Link>
       </span>
@@ -39,7 +39,11 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
         {user && user.id !== blog.userId && !inReadingList && (
           <form action={addToReadingList}>
             <input type="hidden" name="blogId" value={blog.id} />
-            <button type="submit" className="reading-list-btn">
+            <button
+              type="submit"
+              className="reading-list-btn"
+              data-testid="add-to-reading-list-button"
+            >
               Add to Reading List
             </button>
           </form>

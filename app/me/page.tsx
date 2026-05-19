@@ -20,53 +20,80 @@ const MePage = async () => {
   const read = userReadingList.filter((item) => item.read);
 
   return (
-    <div className="card">
+    <div className="card" data-testid="user-profile">
       <h2>My Profile</h2>
-      <p>Name: {user.name}</p>
-      <p>Username: {user.username}</p>
+      <p data-testid="user-name">Name: {user.name}</p>
+      <p data-testid="user-username">Username: {user.username}</p>
 
       <hr />
 
-      <h3>Reading List</h3>
+      <div className="container" data-testid="reading-list-section">
+        <h3>Reading List</h3>
 
-      <h4>Unread ({unread.length})</h4>
-      <ul>
-        {unread.map(({ id, blog }) => (
-          <li key={id} className="unread">
-            <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
-            <form action={markAsRead}>
-              <input type="hidden" name="id" value={id} />
-              <button type="submit" className="unread-btn">
-                Mark as Read
-              </button>
-            </form>
-          </li>
-        ))}
-      </ul>
+        {userReadingList.length === 0 ? (
+          <p data-testid="empty-reading-list">No blogs in reading list yet.</p>
+        ) : (
+          <>
+            <div className="container" data-testid="unread-section">
+              <h4>Unread ({unread.length})</h4>
+              {unread.length === 0 ? (
+                <p data-testid="no-unread-blogs">No unread blogs.</p>
+              ) : (
+                <ul>
+                  {unread.map(({ id, blog }) => (
+                    <li key={id} className="unread">
+                      <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
+                      <form action={markAsRead}>
+                        <input type="hidden" name="id" value={id} />
+                        <button
+                          type="submit"
+                          className="unread-btn"
+                          data-testid={`mark-read-${id}`}
+                        >
+                          Mark as Read
+                        </button>
+                      </form>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
 
-      <h4>Read ({read.length})</h4>
-      <ul>
-        {read.map(({ id, blog }) => (
-          <li key={id} className="read">
-            <Link href={`/blogs/$blog.id`}>{blog.title}</Link>
-          </li>
-        ))}
-      </ul>
+            <h4>Read ({read.length})</h4>
+            <ul>
+              {read.map(({ id, blog }) => (
+                <li key={id} className="read">
+                  <Link href={`/blogs/$blog.id`}>{blog.title}</Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
 
       <hr />
 
-      <h3>API Token</h3>
-      {user.token ? (
-        <p className="bg-gray-400 p-4 rounded flex flex-col">
-          Current Token:{" "}
-          <code className="bg-gray-500 p-2 rounded">{user.token}</code>
-        </p>
-      ) : (
-        <p>No token generated yet.</p>
-      )}
-      <form action={generateToken}>
-        <button type="submit">Generate New Token</button>
-      </form>
+      <div className="container" data-testid="api-token-section">
+        <h3>API Token</h3>
+        {user.token ? (
+          <div
+            data-testid="token-display"
+            className="bg-gray-400 p-4 rounded flex flex-col"
+          >
+            Current Token:{" "}
+            <code data-testid="api-token" className="bg-gray-500 p-2 rounded">
+              {user.token}
+            </code>
+          </div>
+        ) : (
+          <p data-testid="no-token-message">No token generated yet.</p>
+        )}
+        <form action={generateToken}>
+          <button type="submit" data-testid="generate-token-button">
+            Generate New Token
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

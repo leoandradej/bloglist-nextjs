@@ -11,13 +11,13 @@ export default function NavBar() {
   return (
     <nav>
       <Link href="/" className={pathname === "/" ? "active" : ""}>
-        Home
+        home
       </Link>
       <Link href="/blogs" className={pathname === "/blogs" ? "active" : ""}>
-        Blogs
+        blogs
       </Link>
       <Link href="/users" className={pathname === "/users" ? "active" : ""}>
-        Users
+        users
       </Link>
       <div className="navbar-right">
         {session ? (
@@ -26,12 +26,12 @@ export default function NavBar() {
               href="/blogs/new"
               className={pathname === "/blogs/new" ? "active" : ""}
             >
-              Create New
+              create new
             </Link>
             <Link href="/me" className={pathname === "/me" ? "active" : ""}>
-              Me
+              me
             </Link>
-            <button onClick={() => signOut()}>Logout</button>
+            <button onClick={() => signOut()}>logout</button>
           </>
         ) : (
           <>
@@ -39,13 +39,13 @@ export default function NavBar() {
               href="/login"
               className={pathname === "/login" ? "active" : ""}
             >
-              Login
+              login
             </Link>
             <Link
               href="/register"
               className={pathname === "/register" ? "active" : ""}
             >
-              Register
+              register
             </Link>
           </>
         )}

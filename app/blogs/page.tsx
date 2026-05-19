@@ -16,18 +16,20 @@ const Blogs = async ({
     : allBlogs;
 
   return (
-    <div className="container">
+    <div className="container" data-testid="blogs-list">
       <h2>Blogs</h2>
 
-      <form className="flex-row">
+      <form className="form flex-row">
         <input
           type="text"
           name="filter"
           defaultValue={filter ?? ""}
           placeholder="Search by title..."
-          className="w-[50%]"
+          data-testid="filter-input"
         />
-        <button type="submit">Search</button>
+        <button type="submit" data-testid="search-button">
+          Search
+        </button>
       </form>
 
       <ul>
@@ -40,7 +42,7 @@ const Blogs = async ({
             <span>
               URL: <Link href={url}>{url}</Link>
             </span>
-            <span>Likes: {likes}</span>
+            <span>{likes} likes</span>
           </div>
         ))}
       </ul>

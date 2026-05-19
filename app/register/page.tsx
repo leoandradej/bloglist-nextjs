@@ -18,7 +18,7 @@ export default function RegisterPage() {
       <form action={formAction} className="form">
         <div className="relative">
           <label>
-            Username:
+            Username
             <input
               type="text"
               name="username"
@@ -26,12 +26,14 @@ export default function RegisterPage() {
             />
           </label>
           {state.errors?.username && (
-            <span className="error-message">{state.errors.username}</span>
+            <span className="error-message" data-testid="username-error">
+              {state.errors.username}
+            </span>
           )}
         </div>
         <div className="relative">
           <label>
-            Name:
+            Name
             <input type="text" name="name" defaultValue={state.values?.name} />
           </label>
           {state.errors.name && (
@@ -40,7 +42,7 @@ export default function RegisterPage() {
         </div>
         <div className="relative">
           <label>
-            Password:
+            Password
             <input type="password" name="password" />
           </label>
           {state.errors?.password && (
@@ -49,16 +51,16 @@ export default function RegisterPage() {
         </div>
         <div className="relative">
           <label>
-            Confirm Password:
+            Confirm Password
             <input type="password" name="passwordConfirm" />
           </label>
           {state.errors?.passwordConfirm && (
-            <span className="error-message">
+            <span className="error-message" data-testid="passwordConfirm-error">
               {state.errors.passwordConfirm}
             </span>
           )}
         </div>
-        <button type="submit" className="mx-auto">
+        <button type="submit" className="mx-auto" data-testid="register-button">
           Register
         </button>
       </form>

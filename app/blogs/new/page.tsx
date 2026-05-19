@@ -59,7 +59,11 @@ const NewBlog = () => {
             <span className="error-message">{state.errors.url}</span>
           )}
         </div>
-        <button type="submit" className="mx-auto">
+        <button
+          type="submit"
+          className="mx-auto"
+          data-testid="create-blog-button"
+        >
           Create
         </button>
       </form>
