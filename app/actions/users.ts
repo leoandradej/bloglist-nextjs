@@ -67,7 +67,7 @@ export const generateToken = async () => {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
-  const token = crypto.randomUUID();
+  const token = `${crypto.randomUUID()}-${Date.now()}`;
   await db.update(users).set({ token }).where(eq(users.id, user.id));
   revalidatePath("/me");
 };
