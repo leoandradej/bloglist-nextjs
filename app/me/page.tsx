@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { db } from "../../db";
 import { readingList } from "../../db/schema";
 import { markAsRead } from "../actions/blogs";
-import { generateToken } from "../actions/users";
+import TokenSection from "../components/TokenSection";
 import { getCurrentUser } from "../services/session";
 
 const MePage = async () => {
@@ -73,27 +73,7 @@ const MePage = async () => {
 
       <hr />
 
-      <div className="container" data-testid="api-token-section">
-        <h3>API Token</h3>
-        {user.token ? (
-          <div
-            data-testid="token-display"
-            className="bg-gray-400 p-4 rounded flex flex-col"
-          >
-            Current Token:{" "}
-            <code data-testid="api-token" className="bg-gray-500 p-2 rounded">
-              {user.token}
-            </code>
-          </div>
-        ) : (
-          <p data-testid="no-token-message">No token generated yet.</p>
-        )}
-        <form action={generateToken}>
-          <button type="submit" data-testid="generate-token-button">
-            Generate New Token
-          </button>
-        </form>
-      </div>
+      <TokenSection initialToken={user.token} />
     </div>
   );
 };

@@ -2,7 +2,6 @@
 
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db } from "../../db";
 import { users } from "../../db/schema";
@@ -63,12 +62,11 @@ export const registerUser = async (
   redirect("/login");
 };
 
-export const generateToken = async () => {
+export const generateToken = async (prevState: { token: string | null }) => {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
-  const token = `${crypto.randomUUID()}-${Date.now()}`;
+  const token = crypto.randomUUID();
   await db.update(users).set({ token }).where(eq(users.id, user.id));
-  revalidatePath("/me");
-  redirect("/me");
+  return { token };
 };
